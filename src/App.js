@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+
+const StyledApp = styled.div`
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const StyledNote = styled.p`
+  font-size: 200px;
+`
 
 class App extends Component {
+  componentWillMount() {
+    // Setup the listening to Mic
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <StyledApp className="App">
+        <StyledNote>
+          C#
+        </StyledNote>
+      </StyledApp>
     );
   }
 }
