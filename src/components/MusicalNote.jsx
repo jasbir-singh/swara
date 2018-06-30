@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledNote = styled.div`
-  font-size: 200px;
+  font-size: 10em;
 `;
 
 const StyledOctave = styled.span`
-  font-size: 40px;
+  font-size: 0.2em;
 `;
 
 const StyledFrequency = styled.div`
-  font-size: 80px;
+  font-size: 4em;
 `;
 
 const MusicalNote = (props) => {
