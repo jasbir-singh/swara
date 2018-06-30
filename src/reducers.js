@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
   case 'UPDATE_FREQUENCY':
     return {
       ...state,
-      note: action.frequency
+      note: action.note
     };
   default:
     return state;
