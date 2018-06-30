@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import MusicalNoteContainer from './containers/MusicalNoteContainer.jsx';
 
-const StyledApp = styled.div`
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+const StyledMusicNoteContainer = styled.div`
+  background-color: #E81C4F;
+  width: 40%;
+  text-align: center;
+`;
+
 
 class App extends Component {
   render() {
     return (
-      <StyledApp className="App">
+      <StyledMusicNoteContainer>
         <MusicalNoteContainer />
-      </StyledApp>
+      </StyledMusicNoteContainer>
     );
   }
 }

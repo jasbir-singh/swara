@@ -18,7 +18,7 @@ class MusicalNoteContainer extends Component {
 
   componentWillMount() {
     console.log('COMPONENT WILLL MOUNT');
-    this.setupAudio();
+    /* this.setupAudio(); */
   }
 
   setupAudio() {
