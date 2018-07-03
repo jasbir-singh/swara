@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 const degreesToRadians = (d) => (d * Math.PI/180);
-const isEven = (n) => (n % 2 == 0);
-const isOdd = (n) => (Math.abs(n % 2) == 1);
+const isEven = (n) => (n % 2 === 0);
+const isOdd = (n) => (Math.abs(n % 2) === 1);
 
 class Meter extends Component {
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-
+    const cents = this.props.cents || 0;
 
     ctx.beginPath();
     ctx.translate(300, 200)
@@ -17,9 +17,14 @@ class Meter extends Component {
     ctx.lineWidth = 3;
     ctx.fill();
 
+    // Draw the needle
+    ctx.rotate(degreesToRadians(90 * 2 * cents/100 ));
     ctx.moveTo(0,0);
     ctx.lineTo(0, -80);
+    ctx.rotate(degreesToRadians(- 90 * 2 * cents/100 ));
 
+
+    // Draw the metere
     ctx.rotate(degreesToRadians(-90));
     Array.from({ length: 19 }, (x,j) => j*10).forEach(i => {
       const yCord = isEven(i/10) ? -90 : -95;
@@ -29,10 +34,6 @@ class Meter extends Component {
     });
 
     ctx.stroke();
-
-
-    /* ctx.arc(150, 150, 100, 0, Math.PI, true); */
-    /* ctx.ellipse(200, 200, 200, 75, 0, 0, 2 * Math.PI); */
   }
 
   render() {
@@ -43,6 +44,6 @@ class Meter extends Component {
       </div>
     )
   }
-}
+};
 
 export default Meter;

@@ -4,7 +4,8 @@ const initialState = {
   note: {
     note: 'A#',
     octave: 4,
-    frequency: 440
+    frequency: 440,
+    cents: 0,
   }
 }
 

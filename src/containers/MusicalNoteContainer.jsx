@@ -17,18 +17,14 @@ class MusicalNoteContainer extends Component {
   }
 
   componentWillMount() {
-    console.log('COMPONENT WILLL MOUNT');
-    /* this.setupAudio(); */
+    this.setupAudio();
   }
 
   setupAudio() {
-    console.log("setup audio");
     let audio = new Audio();
     audio.src = 'audio/whistling3.ogg'
     audio.loop = true;
-    /* audio.addEventListener('canplay', () => {
-     *   console.log("CANPLAY");
-     */
+    /* audio.addEventListener('canplay', () => { */
       let stream = context.createMediaElementSource(audio);
       stream.connect(analyser);
       stream.connect(context.destination);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import MusicalNoteContainer from './containers/MusicalNoteContainer.jsx';
-import Meter from './components/Meter.jsx';
+import Meter from './containers/MeterContainer';
 
 const StyledMusicNoteContainer = styled.div`
-  background-color: #E81C4F;
+  background-color: #FFEDD7;
+  /* background-color: #E81C4F; */
   width: 40%;
   height: 75%;
   text-align: center;
