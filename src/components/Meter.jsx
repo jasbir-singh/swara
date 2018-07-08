@@ -1,3 +1,4 @@
+// https://github.com/brucemcpherson/canvas-meter/blob/master/src/lib/meter.js
 import React, { Component } from 'react';
 
 const degreesToRadians = (d) => (d * Math.PI/180);
@@ -5,23 +6,22 @@ const isEven = (n) => (n % 2 === 0);
 const isOdd = (n) => (Math.abs(n % 2) === 1);
 
 class Meter extends Component {
-  componentDidMount() {
+
+  setupCanvas() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    const cents = this.props.cents || 0;
 
+    const width= canvas.width;
+    let height = canvas.height;
+    ctx.clearRect (0,0,width,height);
+    ctx.save();
+
+    ctx.translate(300, 200);
     ctx.beginPath();
-    ctx.translate(300, 200)
 
     ctx.arc(0, 0, 4, 0, 2 * Math.PI, false);
     ctx.lineWidth = 3;
     ctx.fill();
-
-    // Draw the needle
-    ctx.rotate(degreesToRadians(90 * 2 * cents/100 ));
-    ctx.moveTo(0,0);
-    ctx.lineTo(0, -80);
-    ctx.rotate(degreesToRadians(- 90 * 2 * cents/100 ));
 
 
     // Draw the metere
@@ -32,8 +32,32 @@ class Meter extends Component {
       ctx.lineTo(0, -100);
       ctx.rotate(degreesToRadians(10));
     });
+  }
+
+  draw() {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    const cents = this.props.cents || 0;
+
+    // Draw the needle
+    ctx.rotate(degreesToRadians(-90)); // Reset the roration
+
+    ctx.rotate(degreesToRadians(90 * 2 * cents/100 ));
+    ctx.moveTo(0,0);
+    ctx.lineTo(0, -80);
+    ctx.rotate(degreesToRadians(- 90 * 2 * cents/100 ));
 
     ctx.stroke();
+  }
+
+  componentDidMount() {
+    this.setupCanvas();
+    this.draw();
+  }
+
+  componentDidUpdate() {
+    this.setupCanvas();
+    this.draw();
   }
 
   render() {

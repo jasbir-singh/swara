@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <StyledMusicNoteContainer>
-        <MusicalNoteContainer style={ {display: 'none'} }/>
+        <MusicalNoteContainer style={ { display: 'none' } }/>
         <div />
         <Meter />
       </StyledMusicNoteContainer>
