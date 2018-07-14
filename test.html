@@ -1,0 +1,25 @@
+<style>
+ html, body {
+   height: 100%;
+ }
+
+ body {
+   margin: 0;
+   background-color: #E81C4F
+ }
+</style>
+<div>
+  <div>
+    <canvas id="canvas">
+    </canvas>
+  </div>
+</div>
+
+
+<script>
+ let canvas = document.getElementById('canvas');
+ let ctx = canvas.getContext('2d');
+ ctx.beginPath();
+ ctx.ellipse(1000, 100, 200, 75, 0, 0, 2 * Math.PI);
+ ctx.stroke();
+</script>

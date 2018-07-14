@@ -1,12 +1,8 @@
 // https://github.com/brucemcpherson/canvas-meter/blob/master/src/lib/meter.js
 import React, { Component } from 'react';
-
-const degreesToRadians = (d) => (d * Math.PI/180);
-const isEven = (n) => (n % 2 === 0);
-const isOdd = (n) => (Math.abs(n % 2) === 1);
+import { degreesToRadians, isEven } from '../utils';
 
 class Meter extends Component {
-
   setupCanvas() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
@@ -50,9 +46,14 @@ class Meter extends Component {
     ctx.stroke();
   }
 
-  componentDidMount() {
+  animate() {
     this.setupCanvas();
     this.draw();
+  }
+
+  componentDidMount() {
+    this.animate();
+    requestAnimationFrame(this.animate.bind(this));
   }
 
   componentDidUpdate() {
