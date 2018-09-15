@@ -1,23 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import reducers from './reducers';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { signalToNote } from './utils';
+import { Tuner } from './Tuner';
 
-const store = createStore(
-  reducers,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const NUM_SAMPLES = 4096;
+class MusicalNote {
+  constructor() {
+    this.tuner = new Tuner();
+    this.signal = new Float32Array(NUM_SAMPLES);
+    this.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.analyser = this.context.createAnalyser();
+    this.analyser.fftSize = NUM_SAMPLES;
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App/>
-  </Provider>,
-  document.getElementById('root')
-);
-registerServiceWorker();
+    this.setupAudio = this.setupAudio.bind(this);
+    this.processAudio = this.processAudio.bind(this);
+    this.setupAudio();
+  }
+
+  setupAudio() {
+    const { context, analyser } = this;
+    let audio = new Audio();
+    audio.src = 'audio/whistling3.ogg';
+    audio.loop = true;
+    audio.addEventListener('canplay', () => {
+      let stream = context.createMediaElementSource(audio);
+      stream.connect(analyser);
+      stream.connect(context.destination);
+      this.processAudio();
+    });
+    audio.play();
+  }
+
+  processAudio () {
+    const { analyser, signal } = this;
+
+    requestAnimationFrame(this.processAudio);
+    analyser.getFloatTimeDomainData(signal);
+    const note = signalToNote(signal);
+
+    if (note) this.tuner.dispatchNote(note);;
+  }
+}
+
+window.addEventListener("load", () => {
+  const musicalNote = new MusicalNote();
+});

@@ -1,3 +1,4 @@
+import detectPitch from 'detect-pitch';
 const noteStrings = [
   'C',
   'C#',
@@ -38,3 +39,15 @@ export const noteFromPitch = frequency => {
 export const degreesToRadians = (d) => (d * Math.PI/180);
 export const isEven = (n) => (n % 2 === 0);
 export const isOdd = (n) => (Math.abs(n % 2) === 1);
+
+export const signalToNote = (signal) => {
+  let note;
+  const period = detectPitch(signal, 0.2);
+  let pitch = -1;
+
+  if (period) {
+    pitch = Math.round(44100.0 / period);
+    note = noteFromPitch(pitch);
+  };
+  return note;
+};
